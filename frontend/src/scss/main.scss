@@ -1,0 +1,48 @@
+@use './bootstrap/bootstrap.scss';
+// https://bootswatch.com/sandstone/
+
+main {
+  min-height: 80vh;
+  margin-top: 120px;
+}
+
+footer {
+  margin-top: 50px;
+}
+
+h1 {
+  /* font-size: 1.4rem; */
+  padding: 1rem 0;
+}
+
+h2 {
+  font-size: 1.4rem;
+  padding: 0.5rem 0;
+}
+
+strong {
+  font-weight: bold;
+}
+
+img {
+  max-width: 100%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.icon-sm {
+  height: 16px;
+  width: 16px;
+}
+
+.icon {
+  height: 24px;
+  width: 24px;
+}
+
+.icon-xl {
+  height: 45px;
+  width: 45px;
+}
