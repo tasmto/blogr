@@ -4,7 +4,11 @@ export function FormatCurrency(number = 0, currency = 'USD') {
     currency: currency,
   });
 }
-export function FormatDate(date = Date.now(), options) {
+export function FormatDate(
+  date?: '',
+  options?: { day: ''; month: ''; year: ''; weekday: '' }
+) {
+  if (!date) return null;
   const format = {
     day: options?.day || 'numeric',
     month: options?.month || 'short',

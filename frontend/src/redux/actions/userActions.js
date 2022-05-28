@@ -27,6 +27,7 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_RESET,
+  USER_SET_PREFERRED_COLOR_THEME,
 } from '../constants/userConstants';
 
 export const login = (email, password) => async (dispatch) => {
@@ -291,3 +292,28 @@ export const updateUser = (user) => async (dispatch, getState) => {
     });
   }
 };
+
+/**@todo make this sync to DB */
+export const updatePreferredUserTheme =
+  (theme) => async (dispatch, getState) => {
+    try {
+      /*
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const { data } = await axios.put(`/api/users/${user._id}`, user, config);
+*/
+      dispatch({
+        type: USER_SET_PREFERRED_COLOR_THEME,
+        payload: theme,
+      });
+      localStorage.setItem('theme', JSON.stringify(theme));
+    } catch (error) {}
+  };

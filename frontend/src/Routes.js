@@ -16,5 +16,19 @@ const publicRoutes = [
     exact: true,
   },
 ];
+const headerRoutes = [
+  {
+    title: `${SITE_TITLE}`,
+    element: HomePage,
+    path: '/',
+    exact: true,
+  },
+  {
+    title: `Whoops`,
+    element: NotFound,
+    path: '*',
+    exact: true,
+  },
+];
 
-export { publicRoutes };
+export { publicRoutes, headerRoutes };

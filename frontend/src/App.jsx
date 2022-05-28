@@ -5,7 +5,6 @@ import Header from './features/navigation/Header';
 import { Container } from 'react-bootstrap';
 import HomePage from './pages/HomePage';
 import NotFound from './pages/NotFound';
-import SingleProduct from './pages/product/SingleProduct';
 import { publicRoutes } from './Routes';
 
 function App() {

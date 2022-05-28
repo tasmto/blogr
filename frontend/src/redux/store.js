@@ -6,14 +6,14 @@ import {
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {
-  productListReducer,
-  productDetailsReducer,
-  productDeleteReducer,
-  productCreateReducer,
-  productUpdateReducer,
-  productReviewCreateReducer,
-  productTopRatedReducer,
-} from './reducers/productReducers';
+  postListReducer,
+  postDetailsReducer,
+  postDeleteReducer,
+  postCreateReducer,
+  postUpdateReducer,
+  postReviewCreateReducer,
+  postTopRatedReducer,
+} from './reducers/postReducers';
 
 import {
   userLoginReducer,
@@ -23,16 +23,17 @@ import {
   userListReducer,
   userDeleteReducer,
   userUpdateReducer,
+  userUpdatePreferredColorThemeReducer,
 } from './reducers/userReducers';
 
 const reducer = combineReducers({
-  productList: productListReducer,
-  productDetails: productDetailsReducer,
-  productDelete: productDeleteReducer,
-  productCreate: productCreateReducer,
-  productUpdate: productUpdateReducer,
-  productReviewCreate: productReviewCreateReducer,
-  productTopRated: productTopRatedReducer,
+  postList: postListReducer,
+  postDetails: postDetailsReducer,
+  postDelete: postDeleteReducer,
+  postCreate: postCreateReducer,
+  postUpdate: postUpdateReducer,
+  postReviewCreate: postReviewCreateReducer,
+  postTopRated: postTopRatedReducer,
 
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -41,14 +42,20 @@ const reducer = combineReducers({
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
+  userTheme: userUpdatePreferredColorThemeReducer,
 });
 
 const userInfoFromLocalStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
 
+const userThemeFromLocalStorage = localStorage.getItem('theme')
+  ? JSON.parse(localStorage.getItem('theme'))
+  : null;
+
 const initialState = {
   userLogin: { userInfo: userInfoFromLocalStorage },
+  userTheme: { theme: userThemeFromLocalStorage },
 };
 const middleware = [thunk];
 const store = createStore(

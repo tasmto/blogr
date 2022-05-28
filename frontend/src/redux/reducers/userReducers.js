@@ -25,6 +25,7 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_REQUEST,
+  USER_SET_PREFERRED_COLOR_THEME,
 } from '../constants/userConstants';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -142,6 +143,18 @@ export const userUpdateReducer = (state = { user: {} }, action) => {
     case USER_UPDATE_RESET:
       return { user: {} };
 
+    default:
+      return state;
+  }
+};
+
+export const userUpdatePreferredColorThemeReducer = (
+  state = { theme: 'light' },
+  action
+) => {
+  switch (action.type) {
+    case USER_SET_PREFERRED_COLOR_THEME:
+      return { theme: action.payload };
     default:
       return state;
   }
