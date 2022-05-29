@@ -1,0 +1,22 @@
+.side-scrollable-category-badges--container {
+  max-width: 100%;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+
+  &::-webkit-scrollbar {
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(207, 207, 199);
+  }
+  .category-badge {
+    cursor: pointer;
+  }
+}

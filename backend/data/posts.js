@@ -2,7 +2,7 @@ const posts = [
   {
     title: 'Introduction to MVC and Microservices',
     template: 'none',
-    categories: ['MVC', 'Patterns', 'Engineering Patterns'],
+    categories: ['mvc', 'patterns', 'engineering-patterns'],
     thumbnail: '/uploads/posts/preact.jpg',
     excerpt:
       'The Model-View-Controller (MVC) architectural pattern is a way of breaking an application or to precisely separate the logic of the code, into three parts: the model, the view, and the controller',
@@ -23,7 +23,7 @@ const posts = [
   {
     title: 'Introduction to Preact',
     template: 'none',
-    categories: ['React', 'Frontend', 'JavaScript'],
+    categories: ['react', 'frontend', 'javascript'],
     thumbnail: '/uploads/posts/MVC.jpg',
     excerpt:
       "Preact is a JavaScript library that describes itself as a fast 3kB alternative to React with the same ES6 API. As a frequent user of React, I'd always wanted to try out Preact and see what it offers, and the differences between Preact and React. In this article, I'll do an introduction to Preact, its key concepts and differences between Preact and React.",

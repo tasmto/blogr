@@ -11,20 +11,20 @@ function App() {
   return (
     <Router>
       <Header />
-      <main className='py-3'>
-        <Container>
-          <Routes>
-            {publicRoutes.map((route) => (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={<route.element />}
-                exact={route?.exact || false}
-              />
-            ))}
-          </Routes>
-        </Container>
-      </main>
+
+      <Container as='main' className='py-3'>
+        <Routes>
+          {publicRoutes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<route.element />}
+              exact={route?.exact || false}
+            />
+          ))}
+        </Routes>
+      </Container>
+
       <Footer />
     </Router>
   );

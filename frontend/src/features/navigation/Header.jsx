@@ -7,6 +7,8 @@ import {
   Nav,
   Offcanvas,
   FormControl,
+  OverlayTrigger,
+  Tooltip,
   Form,
   Button,
   Image,
@@ -14,7 +16,7 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';
-import { FiSearch, FiGrid } from 'react-icons/fi';
+import { FiSearch, FiGrid, FiPlus } from 'react-icons/fi';
 import { useNavigate, Route, Routes, Link } from 'react-router-dom';
 import { logout } from '../../redux/actions/userActions';
 
@@ -46,8 +48,10 @@ const Header = () => {
         <Container fluid='lg'>
           <Row className='w-100  align-items-center '>
             <Col xs='auto' className='align-items-center d-flex '>
-              <Navbar.Brand href='/'>
-                <h2 className='text-light'>{SITE_TITLE}</h2>
+              <Navbar.Brand>
+                <Link to='/' className='text-decoration-none'>
+                  <h2 className='text-light '>{SITE_TITLE}</h2>
+                </Link>
               </Navbar.Brand>
             </Col>
             <Col className='d-flex justify-content-end align-items-center pe-0'>
@@ -112,7 +116,7 @@ const Header = () => {
               </Navbar.Offcanvas>
             </Col>
             <Col xs='auto' className='px-0'>
-              {!userInfo ? (
+              {userInfo ? (
                 <ButtonGroup
                   aria-label='Account login actions'
                   className='ms-3'
@@ -129,23 +133,49 @@ const Header = () => {
                   </Button>
                 </ButtonGroup>
               ) : (
-                <NavDropdown
-                  title={
-                    <Image
-                      src={'/uploads/profiles/avatar-05.svg'}
-                      fluid
-                      roundedCircle
-                      style={{ maxWidth: '35px' }}
-                    />
-                  }
-                  id='navbarScrollingDropdown'
-                >
-                  <NavDropdown.Item href='#action3'>New Post</NavDropdown.Item>
-                  <NavDropdown.Item href='#action4'>My Posts</NavDropdown.Item>
-                  <NavDropdown.Item href='#action4'>Settings</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href='#action5'>Sign out</NavDropdown.Item>
-                </NavDropdown>
+                <Row className='justify-content-center align-items-center'>
+                  <Col sx='auto' className='p-0'>
+                    <NavDropdown
+                      title={
+                        <Image
+                          src={'/uploads/profiles/avatar-05.svg'}
+                          fluid
+                          roundedCircle
+                          style={{ maxWidth: '35px' }}
+                        />
+                      }
+                      id='navbarScrollingDropdown'
+                    >
+                      <NavDropdown.Item href='#action3'>
+                        New Post
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href='#action4'>
+                        My Posts
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href='#action4'>
+                        Settings
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item href='#action5'>
+                        Sign out
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </Col>
+                  <Col sx='auto' className='p-0'>
+                    <OverlayTrigger
+                      placement='bottom'
+                      overlay={<Tooltip>Create a new post</Tooltip>}
+                    >
+                      <Link
+                        to='/posts/create?type=blank'
+                        className='rounded-pill btn btn-warning p-1 '
+                        style={{ height: '35px', width: '35px' }}
+                      >
+                        <FiPlus style={{ height: '20px', width: '20px' }} />
+                      </Link>
+                    </OverlayTrigger>
+                  </Col>
+                </Row>
               )}
             </Col>
           </Row>

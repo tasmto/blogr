@@ -4,7 +4,7 @@
 // https://bootswatch.com/sandstone/
 
 main {
-  margin-top: 70px;
+  margin-top: 80px;
 }
 
 footer {
@@ -27,6 +27,9 @@ strong {
 
 img {
   max-width: 100%;
+  &.cover {
+    object-fit: cover;
+  }
 }
 
 .pointer {
