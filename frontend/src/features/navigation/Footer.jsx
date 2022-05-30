@@ -6,7 +6,7 @@ import DeveloperDetailsBlocks from '../developer/DeveloperDetailsBlocks';
 const Footer = () => {
   return (
     <footer>
-      <Container>
+      <Container fluid='lg'>
         <hr />
         <Row className='justify-content-between'>
           <Col xs='auto'>

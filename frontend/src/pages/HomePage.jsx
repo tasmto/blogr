@@ -36,11 +36,12 @@ const HomePage = () => {
         <Container fluid='lg'>
           <Row className=' gx-2 gy-3 align-items-center justify-content-stretch'>
             <Col lg={6} className='h-100 shadow-lg'>
-              <FeaturedPostCard post={posts.at(1)} loading={loading} />
+              <FeaturedPostCard post={posts.at(0)} loading={loading} />
             </Col>
             <Row className='col-12 col-lg-6 mt-lg-0 gy-2' as='aside'>
               {!loading &&
-                posts.map((post) => (
+                posts.length > 0 &&
+                [posts[1], posts[2]].map((post) => (
                   <Col sm={6} md={12} key={post._id} className=''>
                     <SinglePostCard post={post} />
                   </Col>

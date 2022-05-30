@@ -75,6 +75,7 @@ const postSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    protected: { type: Boolean, required: true, default: false },
     submittedAt: {
       type: Date,
     },

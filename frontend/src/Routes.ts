@@ -5,12 +5,29 @@ import NewPostPage from './pages/posts/NewPostPage';
 import RegisterPage from './pages/user/RegisterPage';
 import LoginPage from './pages/user/LoginPage';
 import ForgotPasswordPage from './pages/user/ForgotPasswordPage';
+import SinglePostPage from './pages/posts/SinglePostPage';
+import EditPostPage from './pages/posts/EditPostPage';
 
 const postRoutes = [
   {
     title: 'Create a new post',
     element: NewPostPage,
     path: '/posts/create',
+  },
+  {
+    title: 'Post',
+    element: SinglePostPage,
+    path: '/posts/:postId',
+  },
+  {
+    title: 'Create Post',
+    element: EditPostPage,
+    path: '/posts/create/:postId',
+  },
+  {
+    title: 'Edit Post',
+    element: EditPostPage,
+    path: '/posts/edit/:postId',
   },
 ];
 

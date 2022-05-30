@@ -17,6 +17,7 @@ const authUser = asyncHandler(async (req, res) => {
       LastName: user.lastName,
       role: user.role,
       email: user.email,
+      avatar: user.avatar,
       token: generateToken(user._id),
     });
   else {
@@ -32,15 +33,10 @@ const authUser = asyncHandler(async (req, res) => {
  */
 const getUserProfile = asyncHandler(async (req, res) => {
   // const user = await User.findById(req.user._id);
-  const user = await User.findById(req.user._id);
+  const user = await User.findById(req.user._id).select('-password');
+
   if (user) {
-    res.json({
-      _id: user._id,
-      firstName: user.firstName,
-      LastName: user.lastName,
-      role: user.role,
-      email: user.email,
-    });
+    res.json(user);
   } else {
     res.status(404);
     throw new Error('User not found');

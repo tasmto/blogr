@@ -50,35 +50,37 @@ function NewPostPage({}: Props) {
   // * Auto create actions can be created through Url prams
   // * type='type&create='true'
   useEffect(() => {
-    if (searchParams.get('create')) createNewPost();
+    if (searchParams.get('create')) dispatch(createPost(typeSelected.name));
   }, [searchParams]);
 
-  const createNewPost = () => {
-    console.log('auto✌');
-    // ! Create a post in api with demo data
-    createPost(typeSelected.name);
-  };
+  // * When a post is created navigate to it
+  useEffect(() => {
+    if (success) navigate(`/posts/create/${post._id}`);
+  }, [success]);
 
   const handleTypeSubmit = (e) => {
     e.preventDefault();
+    // ! Create a post in api with demo data
+    // ts-lint ignore
+    dispatch(createPost(typeSelected.name));
   };
 
-  if (loadingCreate) return <Spinner />;
+  if (loadingCreate) return <Spinner animation='border' />;
   return (
     <>
-      <Container fluid className='bg-light'>
+      <Container fluid className='bg-dark background-image background-image-2'>
         <Container fluid='lg' as='section'>
           <Row className='row align-items-center g-3 g-lg-5 py-5 '>
-            <Col sm={6} lg={5} className='mx-auto mt-0'>
-              <h3 className='display-6 text-center fw-bold d-sm-none mb-3 lh-1'>
+            <Col sm={6} lg={5} xl={4} className='mx-auto mt-0'>
+              <h3 className='display-6 text-center fw-bold d-sm-none mb-3 lh-1 text-light'>
                 What kind of post are you thinking of making?
               </h3>
               <Form
-                className='p-4 h-100 w-100 border rounded-3 bg-light'
+                className='p-4 h-100 w-100 rounded-3 actions-card--container px-5 py-5 '
                 onSubmit={handleTypeSubmit}
               >
                 {postTypes.map((type) => (
-                  <Form.Group key={type.name} className='form-floating mb-2'>
+                  <Form.Group key={type.name} className='form-floating mb-2 '>
                     <Button
                       id={type.name}
                       onClick={() => handleTypeChange(type)}
@@ -100,10 +102,13 @@ function NewPostPage({}: Props) {
                   </Form.Group>
                 ))}
 
-                <button className='w-100 btn btn-lg btn-primary' type='submit'>
+                <button
+                  className='w-100 btn btn-lg btn-primary mt-4'
+                  type='submit'
+                >
                   Ready
                 </button>
-                <hr className='my-4' />
+                <hr className='my-3' />
                 <small className='text-muted'>
                   Let us know if there is something missing ;)
                 </small>
@@ -113,37 +118,19 @@ function NewPostPage({}: Props) {
               id='templates'
               sm={6}
               lg={7}
-              className='text-center text-lg-start position-relative'
+              xl={8}
+              className=' text-lg-start position-relative mt-0'
               as='article'
             >
-              <motion.img
+              <img
                 src={typeSelected.thumbnail}
-                className='position-absolute top-50 start-50 h-100 w-100 contain '
-                style={{
-                  zIndex: 0,
-                  translateY: '-50%',
-                  translateX: '-50%',
-                  pointerEvents: 'none',
-                }}
-                animate={{
-                  opacity: [0.3, 0.15, 0.3],
-                  y: [-10, 10],
-                  x: [-10, 10],
-                  scale: [1.1, 1.25],
-                }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 100,
-                  duration: 4,
-                  repeat: Infinity,
-                  repeatType: 'mirror',
-                }}
+                className='position-absolute top-50 start-50 h-100 w-100 contain floating-image'
               />
               <div style={{ zIndex: 2 }} className='position-relative'>
-                <h1 className='display-4 fw-bold lh-1'>
+                <h1 className='display-4 fw-bold lh-1 text-light'>
                   {typeSelected.heading}
                 </h1>
-                <p className='col-lg-10 fs-4 '>
+                <p className='col-lg-10 fs-4 text-light'>
                   {trimString(typeSelected.description, 200)}
                 </p>
               </div>

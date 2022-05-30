@@ -51,13 +51,13 @@ const FeaturedPostCard = ({ post, loading }: Props) => {
       <Card.Header className='bg-transparent font'>
         <SideScrollableCategoryBadges categories={post.categories} />
       </Card.Header>
-      <Link to={`posts/post._id`}>
+      <Link to={`posts/${post._id}`}>
         <Card.Body
           as='article'
           className='p-4 p-md-5 m-0 text-white rounded-3
            h-100 absolute '
         >
-          <Card.Title className='display-4 fst-italic '>
+          <Card.Title className='display-5 fst-italic '>
             {trimString(post.title, 35)}
           </Card.Title>
           <Card.Text className='lead my-3' as='p'>

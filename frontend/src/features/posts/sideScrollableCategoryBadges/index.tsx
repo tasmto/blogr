@@ -10,7 +10,7 @@ type Props = {
 
 const SideScrollableCategoryBadges = ({ categories }: Props) => {
   const navigate = useNavigate();
-
+  if (!categories || categories.length < 1) return null;
   return (
     <Row className='gx-2 side-scrollable-category-badges--container pb-2'>
       {categories.map((cat, i) => {

@@ -143,7 +143,7 @@ const Header = () => {
                     <NavDropdown
                       title={
                         <Image
-                          src={'/uploads/profiles/avatar-05.svg'}
+                          src={userInfo.avatar}
                           fluid
                           roundedCircle
                           style={{ maxWidth: '35px' }}
@@ -161,7 +161,7 @@ const Header = () => {
                         Settings
                       </NavDropdown.Item>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item href='#action5'>
+                      <NavDropdown.Item onClick={logoutHandler}>
                         Sign out
                       </NavDropdown.Item>
                     </NavDropdown>
