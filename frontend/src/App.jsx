@@ -12,7 +12,7 @@ function App() {
     <Router>
       <Header />
 
-      <Container as='main' className='py-3'>
+      <Container as='main' fluid className='py-3'>
         <Routes>
           {publicRoutes.map((route) => (
             <Route

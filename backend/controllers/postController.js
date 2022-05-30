@@ -1,5 +1,6 @@
 import Post from '../models/postModel.js';
 import asyncHandler from 'express-async-handler';
+import { text } from '../templates/postTemplates.js';
 
 /**
  * @description: Fetches a number of posts
@@ -59,16 +60,11 @@ const deletePost = asyncHandler(async (req, res) => {
  * @access       Private
  */
 const createPost = asyncHandler(async (req, res) => {
+  const { template, type } = req.body;
+  const typeOfPost = type === 'text' ? text : text;
   const post = new Post({
-    name: 'Sample name',
-    price: 0,
+    ...typeOfPost,
     user: req.user._id,
-    image: '/images/sample.jpg',
-    brand: 'Sample brand',
-    category: 'Sample category',
-    countInStock: 0,
-    numReviews: 0,
-    description: 'Sample description',
   });
 
   const createdPost = await post.save();
@@ -76,22 +72,22 @@ const createPost = asyncHandler(async (req, res) => {
 });
 
 /**
- * @description: Update a product
- * @route        Put /api/products/:id
+ * @description: Update a post
+ * @route        Put /api/posts/:id
  * @access       Private/ Admin
  */
 const updatePost = asyncHandler(async (req, res) => {
   const { name, price, description, image, brand, category, countInStock } =
     req.body;
   const post = await Post.findById(req.params.id);
-  if (product) {
-    product.name = name;
-    product.price = price;
-    product.description = description;
-    product.image = image;
-    product.brand = brand;
-    product.category = category;
-    product.countInStock = countInStock;
+  if (post) {
+    post.name = name;
+    post.price = price;
+    post.description = description;
+    post.image = image;
+    post.brand = brand;
+    post.category = category;
+    post.countInStock = countInStock;
 
     const updatedPost = await post.save();
     res.json(updatedPost);

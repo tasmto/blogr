@@ -25,7 +25,7 @@ import {
   POST_TOP_FAIL,
 } from '../constants/postConstants';
 
-export const listProducts =
+export const listPosts =
   (keyword = '', pageNumber = '') =>
   async (dispatch) => {
     try {
@@ -47,7 +47,7 @@ export const listProducts =
     }
   };
 
-export const listProductDetails = (id) => async (dispatch) => {
+export const listPostDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: POST_DETAILS_REQUEST });
 
@@ -65,7 +65,7 @@ export const listProductDetails = (id) => async (dispatch) => {
   }
 };
 
-export const deleteProduct = (id) => async (dispatch, getState) => {
+export const deletePost = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: POST_DELETE_REQUEST,
@@ -96,7 +96,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
   }
 };
 
-export const createProduct = () => async (dispatch, getState) => {
+export const createPost = (type, template) => async (dispatch, getState) => {
   try {
     dispatch({
       type: POST_CREATE_REQUEST,
@@ -108,10 +108,15 @@ export const createProduct = () => async (dispatch, getState) => {
 
     const config = {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.post('/api/posts/', {}, config);
+    const { data } = await axios.post(
+      `/api/posts/`,
+      { type: type || '', template: template || '' },
+      config
+    );
 
     dispatch({
       type: POST_CREATE_SUCCESS,
@@ -128,7 +133,7 @@ export const createProduct = () => async (dispatch, getState) => {
   }
 };
 
-export const updateProduct = (post) => async (dispatch, getState) => {
+export const updatePost = (post) => async (dispatch, getState) => {
   try {
     dispatch({
       type: POST_UPDATE_REQUEST,
@@ -161,7 +166,7 @@ export const updateProduct = (post) => async (dispatch, getState) => {
   }
 };
 
-export const createProductReview =
+export const createPostReview =
   (postId, review) => async (dispatch, getState) => {
     try {
       dispatch({
@@ -194,7 +199,7 @@ export const createProductReview =
     }
   };
 
-export const listTopProducts =
+export const listTopPosts =
   (limit = 4) =>
   async (dispatch) => {
     try {

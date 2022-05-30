@@ -40,6 +40,7 @@ const postSchema = mongoose.Schema(
       ref: 'User',
     },
     title: { type: String, required: true },
+    type: { type: String, required: true, default: 'text' },
     categories: [{ type: String, required: true }],
     thumbnail: { type: String, required: true },
     excerpt: { type: String },

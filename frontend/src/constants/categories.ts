@@ -29,11 +29,11 @@ const blogCategories = [
     background: '#f0db4f',
     color: '#212529 ',
   },
-  //   {
-  //     name: 'patterns',
-  //     title: 'Patterns',
-  //     background: '#FAAD8E',
-  //     color: '#212529 ',
-  //   },
+  {
+    name: 'patterns',
+    title: 'Patterns',
+    background: '#FAAD8E',
+    color: '#212529 ',
+  },
 ];
 export default blogCategories;

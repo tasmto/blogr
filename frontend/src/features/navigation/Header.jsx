@@ -116,19 +116,24 @@ const Header = () => {
               </Navbar.Offcanvas>
             </Col>
             <Col xs='auto' className='px-0'>
-              {userInfo ? (
+              {!userInfo ? (
                 <ButtonGroup
                   aria-label='Account login actions'
                   className='ms-3'
                 >
                   <Button
-                    onClick={() => navigate('/')}
+                    onClick={() => navigate('/user/login')}
                     variant='outline-light'
                     className='me-2'
+                    role='link'
                   >
                     Login
                   </Button>
-                  <Button onClick={() => navigate('/')} variant='warning'>
+                  <Button
+                    onClick={() => navigate('/user/register')}
+                    variant='warning'
+                    role='link'
+                  >
                     Sign-up
                   </Button>
                 </ButtonGroup>
