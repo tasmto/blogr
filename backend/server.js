@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import path from 'path';
 import postRoutes from './routes/postRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import secretsRoutes from './routes/secretsRoutes.js';
 
 import uploadRoutes from './routes/uploadRoutes.js';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
@@ -25,6 +26,7 @@ app.use(express.json()); // allows us to use JSON data in the body
 app.use('/api/upload', uploadRoutes); // mount the file upload routes
 app.use('/api/posts', postRoutes); // mount the post routes
 app.use('/api/users', userRoutes); // mount the user routes
+app.use('/api/integrations', secretsRoutes); // mount the secrets routes
 
 // The uploads folder by default wont be accessible for node so we need to make it using express
 const __dirname = path.resolve();
