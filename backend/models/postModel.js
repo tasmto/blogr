@@ -39,7 +39,7 @@ const postSchema = mongoose.Schema(
       ref: 'User',
     },
     title: { type: String, required: true },
-    topic: { type: String, required: true, default: 'Other' },
+    topics: [{ type: String, required: true, default: 'Other' }],
     thumbnail: { type: String, required: true },
     excerpt: { type: String, required: true },
     content: [
@@ -62,14 +62,6 @@ const postSchema = mongoose.Schema(
       default: false,
     },
     publishedAt: {
-      type: Date,
-    },
-    isSubmitted: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    submittedAt: {
       type: Date,
     },
     approveDate: { type: Date },

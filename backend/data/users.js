@@ -5,7 +5,7 @@ import {
   GURU,
   NORMEE,
   SAGE,
-} from '../constants/userRoleConstants';
+} from '../constants/userRoleConstants.js';
 const users = [
   {
     firstName: 'Vax',
