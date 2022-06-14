@@ -4,7 +4,7 @@ import { darkMode } from './darkMode';
 import { lightMode } from './lightMode';
 
 // todo: use redux for theme switching
-const mode: 'light' | 'dark' | string = 'light';
+let mode: 'light' | 'dark' = 'light';
 
 const selectedPallet = mode === 'light' ? lightMode : darkMode;
 

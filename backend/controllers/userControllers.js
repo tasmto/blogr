@@ -8,7 +8,15 @@ import { generateToken } from '../utils/generateJWTToken.js';
  * @access       Public
  */
 const signUpUser = asyncHandler(async (req, res) => {
-  const { email, firstName, lastName, password, avatar } = req.body;
+  const {
+    email,
+    firstName,
+    lastName,
+    password,
+    avatar,
+    preferredColorTheme,
+    bio,
+  } = req.body;
   const userExists = await User.findOne({ email });
 
   if (userExists) {
@@ -22,6 +30,8 @@ const signUpUser = asyncHandler(async (req, res) => {
     password,
     email,
     avatar,
+    preferredColorTheme,
+    bio,
   });
 
   if (!user) {
@@ -37,6 +47,10 @@ const signUpUser = asyncHandler(async (req, res) => {
     role: user.role,
     avatar: user.avatar,
     bookmarks: user.bookmarks,
+    preferredColorTheme: user.preferredColorTheme,
+    favoriteTopics: user.favoriteTopics,
+    following: user.following,
+    bio: user.bio,
     token: generateToken(user._id),
   });
 });
@@ -70,6 +84,10 @@ const signInUser = asyncHandler(async (req, res) => {
     role: user.role,
     avatar: user.avatar,
     bookmarks: user.bookmarks,
+    preferredColorTheme: user.preferredColorTheme,
+    favoriteTopics: user.favoriteTopics,
+    following: user.following,
+    bio: user.bio,
     token: generateToken(user._id),
   });
 });

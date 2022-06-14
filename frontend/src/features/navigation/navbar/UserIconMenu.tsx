@@ -1,46 +1,68 @@
 import React from 'react';
-import Divider from '@mui/material/Divider';
-import Tooltip from '@mui/material/Tooltip';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import IconButton from '@mui/material/IconButton';
+import {
+  Typography,
+  Divider,
+  Tooltip,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  IconButton,
+} from '@mui/material';
+
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Avatar from '@mui/material/Avatar';
 import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
+import { IoLogOutOutline, IoPersonCircleOutline } from 'react-icons/io5';
+import {
+  Logout,
+  UserDetailsSliceType,
+} from '../../../redux/slices/UserDetailsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { RootState } from '../../../redux/store';
 
 type Props = {};
 
 const UserIconMenu = (props: Props) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const { user, loading, error }: UserDetailsSliceType = useSelector(
+    (state: RootState) => state.userDetails
+  );
+
+  const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(
+    null
+  );
+  const menuOpen = Boolean(menuAnchorEl);
+
+  const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setMenuAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleCloseMenu = () => setMenuAnchorEl(null);
+
+  const handleLogout = () => dispatch(Logout());
   return (
     <>
       <Tooltip title='Account settings'>
         <IconButton
-          onClick={handleClick}
+          onClick={handleOpenMenu}
           size='small'
-          aria-controls={open ? 'account-menu' : undefined}
+          aria-controls={menuOpen ? 'account-menu' : undefined}
           aria-haspopup='true'
-          aria-expanded={open ? 'true' : undefined}
+          aria-expanded={menuOpen ? 'true' : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+          <Avatar sx={{ width: 32, height: 32 }} src={user?.avatar}>
+            {user?.firstName.charAt(1).toUpperCase()}
+          </Avatar>
         </IconButton>
       </Tooltip>
       <Menu
-        anchorEl={anchorEl}
+        anchorEl={menuAnchorEl}
         id='account-menu'
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
+        open={menuOpen}
+        onClose={handleCloseMenu}
+        onClick={handleCloseMenu}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -59,27 +81,28 @@ const UserIconMenu = (props: Props) => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <Avatar /> Profile
+          <ListItemIcon>
+            <IoPersonCircleOutline style={{ fontSize: '1.35rem' }} />
+          </ListItemIcon>
+          My Profile
         </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
         <MenuItem>
           <ListItemIcon>
-            <PersonAdd fontSize='small' />
+            <IoPersonCircleOutline style={{ fontSize: '1.35rem' }} />
           </ListItemIcon>
-          Add another account
+          My account
         </MenuItem>
+        <Divider />
+
         <MenuItem>
           <ListItemIcon>
             <Settings fontSize='small' />
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
-            <Logout fontSize='small' />
+            <IoLogOutOutline style={{ fontSize: '1.35rem' }} />
           </ListItemIcon>
           Logout
         </MenuItem>

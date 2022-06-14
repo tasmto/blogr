@@ -2,10 +2,10 @@ export const darkMode = {
   palette: {
     type: 'dark',
     primary: {
-      main: 'rgb(51, 65, 85)',
+      main: '#F28705',
     },
     secondary: {
-      main: '#1A8917',
+      main: '#038C8C',
     },
     text: {
       primary: '#ffffff',

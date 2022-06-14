@@ -22,7 +22,7 @@ function App() {
               backgroundColor: 'background.default',
               minHeight: '100vh',
               maxWidth: '100vw',
-              ml: 0,
+              ml: '0 !important',
               mr: 0,
             }}
           >
@@ -34,6 +34,7 @@ function App() {
                 maxWidth: '100vw',
                 width: '100%',
                 boxSizing: 'border-box',
+                ml: '0 !important',
               }}
             >
               <Grid
@@ -42,7 +43,11 @@ function App() {
                 xs={12}
                 md='auto'
                 component='header'
-                sx={{ width: { md: '100px' }, pl: '0px !important' }}
+                sx={{
+                  width: { md: '100px' },
+                  pl: '0px !important',
+                  zIndex: '500',
+                }}
               >
                 <Navbar />
               </Grid>

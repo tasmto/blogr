@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 export interface userDetailsType {
   _id: string;
   firstName: string;
@@ -6,22 +7,26 @@ export interface userDetailsType {
   email: string;
   role: string;
   avatar: string;
-  bookmarks: [string];
+  bookmarks: string[];
   token: string;
+  preferredColorTheme: string;
+  favoriteTopics: string[];
+  following: string[];
+  bio: string;
 }
 
 export interface UserDetailsSliceType {
-  user: {} | userDetailsType;
+  user: null | userDetailsType;
   loading: boolean;
   error?: string;
 }
 
-const userFromLocalStorage: {} | userDetailsType = localStorage.getItem(
+const userFromLocalStorage: null | userDetailsType = localStorage.getItem(
   'userInfo'
 )
   ? //@ts-ignore: localStorage may be null
     JSON.parse(localStorage.getItem('userInfo'))
-  : {};
+  : null;
 
 const initialState: UserDetailsSliceType = {
   user: userFromLocalStorage,
@@ -34,7 +39,7 @@ export const userDetailsSlice = createSlice({
 
   reducers: {
     LoginRequest: (state) => {
-      state.user = {};
+      state.user = null;
       state.loading = true;
       state.error = undefined;
 
@@ -48,12 +53,14 @@ export const userDetailsSlice = createSlice({
       localStorage.setItem('userInfo', JSON.stringify(state.user));
     },
     LoginFail: (state, action) => {
-      state.user = {};
+      state.user = null;
       state.loading = false;
       state.error = action.payload;
     },
     Logout: (state) => {
-      state = { ...initialState };
+      state.user = null;
+      state.loading = false;
+      state.error = undefined;
       localStorage.removeItem('userInfo');
     },
   },

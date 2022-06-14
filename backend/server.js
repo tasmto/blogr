@@ -19,6 +19,10 @@ app.use(express.json()); // allows us to use JSON data in the body
 // Mount the API routes
 app.use('/api/users', userRoutes);
 
+// Make the local server folder uploads accessible to express
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
 app.get('/', (req, res) => {
   res.send('API is running');
 });

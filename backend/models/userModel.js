@@ -25,6 +25,20 @@ const userSchema = mongoose.Schema(
       required: true,
       default: 'normee',
     },
+    bio: {
+      type: String,
+      required: true,
+      default: '',
+    },
+    preferredColorTheme: {
+      type: String,
+      required: true,
+      default: 'light',
+    },
+    favoriteTopics: [{ type: String, required: true, default: '' }],
+    following: [
+      { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
+    ],
     bookmarks: [
       {
         type: mongoose.Schema.Types.ObjectId,

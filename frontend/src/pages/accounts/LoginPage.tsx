@@ -1,16 +1,36 @@
 import React, { useState } from 'react';
 import { Box, Grid, Container } from '@mui/material';
 import LoginForm from '../../features/login/LoginForm';
-import { login } from '../../redux/actions/UserDetailsActions';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import AlreadySignedInCard from '../../features/login/AlreadySignedInCard';
+import CircularSpinner from '../../components/spinners/CircularSpinner';
 
 type Props = {};
 
 const LoginPage = (props: Props) => {
+  const {
+    user,
+    loading: userLoading,
+    error: userError,
+  } = useSelector((state: RootState) => state.userDetails);
+
   return (
     <Container>
       <Grid container item spacing={4} sx={{ pt: 5, minHeight: '100vh' }}>
-        <Grid item xs={12} lg={5} sx={{ alignSelf: 'center' }}>
-          <LoginForm />
+        <Grid
+          item
+          xs={12}
+          lg={5}
+          sx={{ alignSelf: 'center', justifySelf: 'center' }}
+        >
+          {userLoading ? (
+            <CircularSpinner />
+          ) : user ? (
+            <AlreadySignedInCard />
+          ) : (
+            <LoginForm />
+          )}
         </Grid>
         <Grid item xs={12} lg={7} sx={{ alignSelf: 'stretch' }}>
           <h2>
