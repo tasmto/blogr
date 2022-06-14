@@ -7,6 +7,7 @@ import {
   Button,
   Divider,
   Typography,
+  Grid,
 } from '@mui/material';
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
@@ -36,7 +37,14 @@ const ScreenOne = ({ onSubmit }: Props) => {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (formData.password === '' || formData.email === '') return false;
+    if (
+      !formData.lastName ||
+      !formData.firstName ||
+      !formData.password ||
+      !formData.confirmPassword ||
+      !formData.email
+    )
+      return false;
 
     onSubmit(formData);
   };
@@ -51,92 +59,104 @@ const ScreenOne = ({ onSubmit }: Props) => {
         pr: { md: 0 },
       }}
     >
-      <TextField
-        fullWidth
-        id='firstName'
-        required
-        label='What is your first Name?'
-        type='text'
-        variant='outlined'
-        value={formData.firstName}
-        onChange={handleFormMutation}
-      />
-      <TextField
-        fullWidth
-        id='lastName'
-        required
-        label='What is your lastName?'
-        type='text'
-        variant='outlined'
-        value={formData.lastName}
-        onChange={handleFormMutation}
-      />
-      <TextField
-        fullWidth
-        id='email'
-        required
-        label='What is your emal?'
-        type='email'
-        variant='outlined'
-        value={formData.email}
-        onChange={handleFormMutation}
-      />
-      <Divider textAlign='left' sx={{ mt: 1, mb: 2 }}>
-        <Typography variant='caption'>Security</Typography>
-      </Divider>
-      <TextField
-        fullWidth
-        id='password'
-        required
-        label='What is your password?'
-        type={showPassword ? 'text' : 'password'}
-        variant='outlined'
-        helperText='Your password needs to be at least 8 characters long.'
-        value={formData.password}
-        onChange={handleFormMutation}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position='start'>
-              <IconButton
-                sx={{ cursor: 'pointer' }}
-                edge='end'
-                aria-label='toggle password visibility'
-                onClick={toggleShowPassword}
-              >
-                {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      />
-      <TextField
-        fullWidth
-        id='confirmPassword'
-        required
-        label='Confirm your password?'
-        type={showPassword ? 'text' : 'password'}
-        variant='outlined'
-        value={formData.confirmPassword}
-        onChange={handleFormMutation}
-        helperText='Your password needs to be at least 8 characters long.'
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position='start'>
-              <IconButton
-                sx={{ cursor: 'pointer' }}
-                edge='end'
-                aria-label='toggle password visibility'
-                onClick={toggleShowPassword}
-              >
-                {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      />
-      <Typography variant='body2'>
-        Your password needs to be at least 8 characters long.
-      </Typography>
+      <Grid container columnSpacing={2}>
+        <Grid item xs={12} md={6} lg={12}>
+          <TextField
+            fullWidth
+            id='firstName'
+            required
+            label='What is your first name?'
+            type='text'
+            variant='outlined'
+            value={formData.firstName}
+            onChange={handleFormMutation}
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={12}>
+          <TextField
+            fullWidth
+            id='lastName'
+            required
+            label='What is your last name?'
+            type='text'
+            variant='outlined'
+            value={formData.lastName}
+            onChange={handleFormMutation}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            id='email'
+            required
+            label='What is your emal?'
+            type='email'
+            variant='outlined'
+            value={formData.email}
+            onChange={handleFormMutation}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Divider textAlign='left' sx={{ mt: 1, mb: 2 }}>
+            <Typography variant='caption'>Security</Typography>
+          </Divider>
+        </Grid>
+
+        <Grid item xs={12} md={6} lg={12}>
+          <TextField
+            fullWidth
+            id='password'
+            required
+            label='What is your password?'
+            type={showPassword ? 'text' : 'password'}
+            variant='outlined'
+            helperText='Your password needs to be at least 8 characters long.'
+            value={formData.password}
+            onChange={handleFormMutation}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='start'>
+                  <IconButton
+                    sx={{ cursor: 'pointer' }}
+                    edge='end'
+                    aria-label='toggle password visibility'
+                    onClick={toggleShowPassword}
+                  >
+                    {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={12}>
+          <TextField
+            fullWidth
+            id='confirmPassword'
+            required
+            label='Confirm your password?'
+            type={showPassword ? 'text' : 'password'}
+            variant='outlined'
+            value={formData.confirmPassword}
+            onChange={handleFormMutation}
+            helperText='Your password needs to be at least 8 characters long.'
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='start'>
+                  <IconButton
+                    sx={{ cursor: 'pointer' }}
+                    edge='end'
+                    aria-label='toggle password visibility'
+                    onClick={toggleShowPassword}
+                  >
+                    {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+      </Grid>
       <Button
         variant='contained'
         disableElevation
