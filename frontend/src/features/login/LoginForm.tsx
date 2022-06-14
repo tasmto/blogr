@@ -8,10 +8,14 @@ import {
 } from '@mui/material';
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 import { validateEmailFormat } from '../../utilities/ValidateFormat';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/actions/UserDetailsActions';
 
 type Props = {};
 
 const LoginForm = (props: Props) => {
+  const dispatch: any = useDispatch();
+
   const [signInFormData, setSignInFormData] = useState({
     email: '',
     password: '',
@@ -30,7 +34,8 @@ const LoginForm = (props: Props) => {
 
     if (signInFormData.password === '' || signInFormData.email === '')
       return false;
-    console.log(signInFormData.password.trim().length);
+
+    dispatch(login(signInFormData.email, signInFormData.password));
   };
   return (
     <Container
@@ -89,7 +94,7 @@ const LoginForm = (props: Props) => {
           signInFormData.password.trim().length < 8
         }
       >
-        Submit
+        Sign In
       </Button>
     </Container>
   );

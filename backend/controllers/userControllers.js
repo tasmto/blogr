@@ -49,6 +49,12 @@ const signUpUser = asyncHandler(async (req, res) => {
 const signInUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(401);
+    throw new Error('Invalid email or password');
+  }
+
   const passwordMatches = await user.matchPassword(password);
 
   if (!passwordMatches) {
