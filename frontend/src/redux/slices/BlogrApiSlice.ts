@@ -8,6 +8,17 @@ export interface LoginRequest {
   email: string;
   password: string;
 }
+export interface RegisterRequest {
+  firstName: string;
+  lastName: string;
+  password: string;
+  confirmPassword: string;
+  email: string;
+  avatar: string;
+  topics: string[];
+  preferredColorTheme: string;
+  bio: string;
+}
 
 export const blogrApiSlice = createApi({
   // When we attach this to a store where are we keeping the data?
@@ -40,6 +51,13 @@ export const blogrApiSlice = createApi({
           body: credentials,
         }),
       }),
+      register: builder.mutation<userDetailsType, RegisterRequest>({
+        query: (credentials) => ({
+          url: '/users/sign-up',
+          method: 'POST',
+          body: credentials,
+        }),
+      }),
       uploadFile: builder.mutation<{}, FormData>({
         query: (file) => ({
           url: '/upload',
@@ -56,5 +74,6 @@ export const blogrApiSlice = createApi({
 export const {
   useFetchUserDetailsQuery,
   useLoginMutation,
+  useRegisterMutation,
   useUploadFileMutation,
 } = blogrApiSlice;

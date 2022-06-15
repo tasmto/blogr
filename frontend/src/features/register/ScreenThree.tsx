@@ -11,12 +11,13 @@ import {
 } from '@mui/material';
 import { IoImageOutline } from 'react-icons/io5';
 import UploadProfilePicture from '../profile/UploadProfilePicture';
+import { RegisterRequest } from '../../redux/slices/BlogrApiSlice';
 
-type Props = { onSubmit: (data: {}) => void };
+type Props = { onSubmit: (data: {}) => void; data: RegisterRequest };
 
-const ScreenOne = ({ onSubmit }: Props) => {
+const ScreenOne = ({ onSubmit, data }: Props) => {
   const [formData, setFormData] = useState({
-    avatar: '',
+    avatar: data.avatar || '',
   });
 
   const handleFormMutation = (link: string) => setFormData({ avatar: link });
@@ -47,7 +48,7 @@ const ScreenOne = ({ onSubmit }: Props) => {
         sx={{ borderRadius: '15px', width: '100%', mt: 2 }}
         type='submit'
         size='large'
-        disabled={false}
+        disabled={formData.avatar === ''}
       >
         Finish
       </Button>

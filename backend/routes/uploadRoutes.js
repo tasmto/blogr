@@ -7,7 +7,7 @@ const router = express.Router();
 // Initialize upload engine
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads/');
+    cb(null, 'uploads/profiles/pictures');
   },
   filename(req, file, cb) {
     // UUID and extension of the original file (includes dot already)
@@ -36,7 +36,7 @@ const upload = multer({
 });
 
 router.post('/', upload.single('image'), (req, res) => {
-  res.send(`/${req.file.path}`);
+  res.send(`uploads/profiles/pictures/${req.file.filename}`);
 });
 
 export default router;

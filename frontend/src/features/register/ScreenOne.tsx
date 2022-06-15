@@ -11,18 +11,20 @@ import {
 } from '@mui/material';
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
+import { RegisterRequest } from '../../redux/slices/BlogrApiSlice';
 
 type Props = {
   onSubmit: (data: {}) => void;
+  data: RegisterRequest;
 };
 
-const ScreenOne = ({ onSubmit }: Props) => {
+const ScreenOne = ({ onSubmit, data }: Props) => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    password: '',
-    confirmPassword: '',
-    email: '',
+    firstName: data.firstName || '',
+    lastName: data.lastName || '',
+    password: data.password || '',
+    confirmPassword: data.confirmPassword || '',
+    email: data.email || '',
   });
 
   const [showPassword, setShowPassword] = useState(false);

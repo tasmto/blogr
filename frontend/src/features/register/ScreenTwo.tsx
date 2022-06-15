@@ -7,13 +7,14 @@ import {
   ToggleButton,
   Typography,
 } from '@mui/material';
+import { RegisterRequest } from '../../redux/slices/BlogrApiSlice';
 
-type Props = { onSubmit: (data: {}) => void };
+type Props = { onSubmit: (data: {}) => void; data: RegisterRequest };
 
-const ScreenTwo = ({ onSubmit }: Props) => {
+const ScreenTwo = ({ onSubmit, data }: Props) => {
   const [formData, setFormData] = useState({
-    bio: '',
-    topics: [],
+    bio: data.bio || '',
+    topics: data.topics || [],
   });
 
   const featuredTopics = [
@@ -82,7 +83,7 @@ const ScreenTwo = ({ onSubmit }: Props) => {
         sx={{ flexWrap: 'wrap' }}
       >
         {featuredTopics.map((topic) => (
-          <ToggleButton value={topic} aria-label={topic}>
+          <ToggleButton value={topic} key={topic} aria-label={topic}>
             {topic}
           </ToggleButton>
         ))}
