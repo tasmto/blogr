@@ -92,4 +92,32 @@ const signInUser = asyncHandler(async (req, res) => {
   });
 });
 
-export { signUpUser, signInUser };
+/**
+ * @description: Gets a user's profile details using their ID
+ * @route        POST /api/users/:id
+ * @access       Public
+ */
+const getUserProfile = asyncHandler(async (req, res) => {
+  const { id } = req.body;
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    res.status(401);
+    throw new Error('User Not found');
+  }
+
+  res.status(201).json({
+    _id: user._id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+
+    role: user.role,
+    avatar: user.avatar,
+
+    following: user.following,
+    bio: user.bio,
+    //todo attach their posts as well
+  });
+});
+
+export { signUpUser, signInUser, getUserProfile };

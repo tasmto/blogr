@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
-import { login } from '../../redux/actions/UserDetailsActions';
 
 type Props = {
   onSubmit: (data: {}) => void;
@@ -27,7 +26,15 @@ const ScreenOne = ({ onSubmit }: Props) => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [passwordInputsMatch, setPasswordInputsMatch] = useState(true);
   const toggleShowPassword = () => setShowPassword((curState) => !curState);
+
+  const checkPasswordMatch = () =>
+    setPasswordInputsMatch(formData.confirmPassword === formData.password);
+
+  useEffect(() => {
+    if (formData.password) checkPasswordMatch();
+  }, [formData.confirmPassword, formData.password]);
 
   const handleFormMutation = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFormData((prevData) => {
@@ -134,26 +141,17 @@ const ScreenOne = ({ onSubmit }: Props) => {
             fullWidth
             id='confirmPassword'
             required
+            error={!passwordInputsMatch}
             label='Confirm your password?'
             type={showPassword ? 'text' : 'password'}
             variant='outlined'
             value={formData.confirmPassword}
             onChange={handleFormMutation}
-            helperText='Your password needs to be at least 8 characters long.'
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position='start'>
-                  <IconButton
-                    sx={{ cursor: 'pointer' }}
-                    edge='end'
-                    aria-label='toggle password visibility'
-                    onClick={toggleShowPassword}
-                  >
-                    {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
+            helperText={
+              passwordInputsMatch
+                ? 'Your password needs to be at least 8 characters long.'
+                : 'This password does not match your password above...'
+            }
           />
         </Grid>
       </Grid>
@@ -164,9 +162,14 @@ const ScreenOne = ({ onSubmit }: Props) => {
         type='submit'
         size='large'
         disabled={
-          formData.email === '' ||
-          formData.password === '' ||
-          formData.password.trim().length < 8
+          !formData.lastName ||
+          !formData.firstName ||
+          !formData.password ||
+          !formData.confirmPassword ||
+          !formData.email ||
+          !passwordInputsMatch ||
+          formData.password.trim().length < 8 ||
+          formData.confirmPassword.trim().length < 8
         }
       >
         Sign In

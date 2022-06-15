@@ -11,7 +11,7 @@ import {
   Paper,
 } from '@mui/material';
 import {
-  Logout,
+  resetCredentials,
   UserDetailsSliceType,
 } from '../../redux/slices/UserDetailsSlice';
 import { useDispatch } from 'react-redux';
@@ -25,7 +25,7 @@ const AlreadySignedInCard = (props: Props) => {
     (state: RootState) => state.userDetails
   );
 
-  const handleLogout = () => dispatch(Logout());
+  const handleLogout = () => dispatch(resetCredentials());
 
   return (
     <Card

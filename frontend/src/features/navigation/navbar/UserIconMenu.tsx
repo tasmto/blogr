@@ -14,7 +14,7 @@ import Avatar from '@mui/material/Avatar';
 import Settings from '@mui/icons-material/Settings';
 import { IoLogOutOutline, IoPersonCircleOutline } from 'react-icons/io5';
 import {
-  Logout,
+  resetCredentials,
   UserDetailsSliceType,
 } from '../../../redux/slices/UserDetailsSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,7 +41,7 @@ const UserIconMenu = (props: Props) => {
   };
   const handleCloseMenu = () => setMenuAnchorEl(null);
 
-  const handleLogout = () => dispatch(Logout());
+  const handleLogout = () => dispatch(resetCredentials());
   return (
     <>
       <Tooltip title='Account settings'>

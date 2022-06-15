@@ -4,16 +4,14 @@ import LoginForm from '../../features/login/LoginForm';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import AlreadySignedInCard from '../../features/login/AlreadySignedInCard';
-import CircularSpinner from '../../components/spinners/CircularSpinner';
+import CircularSpinner from '../../features/spinners/CircularSpinner';
+import { useLoginMutation } from '../../redux/slices/BlogrApiSlice';
 
 type Props = {};
 
 const LoginPage = (props: Props) => {
-  const {
-    user,
-    loading: userLoading,
-    error: userError,
-  } = useSelector((state: RootState) => state.userDetails);
+  const { user } = useSelector((state: RootState) => state.userDetails);
+  const [login, { isLoading }] = useLoginMutation();
 
   return (
     <Container>
@@ -24,7 +22,7 @@ const LoginPage = (props: Props) => {
           lg={5}
           sx={{ alignSelf: 'center', justifySelf: 'center' }}
         >
-          {userLoading ? (
+          {isLoading ? (
             <CircularSpinner />
           ) : user ? (
             <AlreadySignedInCard />

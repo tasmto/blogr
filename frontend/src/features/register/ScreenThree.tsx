@@ -5,34 +5,25 @@ import {
   Container,
   IconButton,
   Button,
+  Typography,
+  Input,
+  Paper,
 } from '@mui/material';
-import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
-import { useDispatch } from 'react-redux';
-import { login } from '../../redux/actions/UserDetailsActions';
+import { IoImageOutline } from 'react-icons/io5';
+import UploadProfilePicture from '../profile/UploadProfilePicture';
 
 type Props = { onSubmit: (data: {}) => void };
 
 const ScreenOne = ({ onSubmit }: Props) => {
-  const [formData, setformData] = useState({
-    firstName: '',
-    lastName: '',
-    password: '',
-    email: '',
+  const [formData, setFormData] = useState({
+    avatar: '',
   });
 
-  const [showPassword, setShowPassword] = useState(false);
-  const toggleShowPassword = () => setShowPassword((curState) => !curState);
-
-  const handleFormMutation = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setformData((prevData) => {
-      return { ...prevData, [e.target.id]: e.target.value };
-    });
+  const handleFormMutation = (link: string) => setFormData({ avatar: link });
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (formData.password === '' || formData.email === '') return false;
-
+    if (formData.avatar === '') return false;
     onSubmit(formData);
   };
 
@@ -46,54 +37,19 @@ const ScreenOne = ({ onSubmit }: Props) => {
         pr: { md: 0 },
       }}
     >
-      <TextField
-        fullWidth
-        id='email'
-        required
-        label='What is your emal?'
-        type='email'
-        variant='outlined'
-        value={formData.email}
-        onChange={handleFormMutation}
-      />
-      <TextField
-        fullWidth
-        id='password'
-        required
-        label='What is your password?'
-        type={showPassword ? 'text' : 'password'}
-        variant='outlined'
-        value={formData.password}
-        onChange={handleFormMutation}
-        helperText='Your password needs to be at least 8 characters long.'
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position='start'>
-              <IconButton
-                sx={{ cursor: 'pointer' }}
-                edge='end'
-                aria-label='toggle password visibility'
-                onClick={toggleShowPassword}
-              >
-                {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      />
+      <Typography variant='h3' sx={{ mb: 3 }}>
+        Create a new account: 3 of 3
+      </Typography>
+      <UploadProfilePicture onUpload={handleFormMutation} />
       <Button
         variant='contained'
         disableElevation
         sx={{ borderRadius: '15px', width: '100%', mt: 2 }}
         type='submit'
         size='large'
-        disabled={
-          formData.email === '' ||
-          formData.password === '' ||
-          formData.password.trim().length < 8
-        }
+        disabled={false}
       >
-        Sign In
+        Finish
       </Button>
     </Container>
   );

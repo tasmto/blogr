@@ -1,5 +1,9 @@
 import express from 'express';
-import { signInUser, signUpUser } from '../controllers/userControllers.js';
+import {
+  getUserProfile,
+  signInUser,
+  signUpUser,
+} from '../controllers/userControllers.js';
 import {
   isAdmin,
   isLevelOneOrHigher,
@@ -13,5 +17,6 @@ const router = express.Router();
 // Login and register routes
 router.route('/sign-up').post(signUpUser);
 router.route('/sign-in').post(signInUser);
+router.route('/:id').get(getUserProfile);
 
 export default router;

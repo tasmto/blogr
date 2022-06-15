@@ -1,4 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+/* React-specific entry point that automatically generates
+   hooks corresponding to the defined endpoints */
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface userDetailsType {
   _id: string;
@@ -38,26 +41,14 @@ export const userDetailsSlice = createSlice({
   initialState,
 
   reducers: {
-    LoginRequest: (state) => {
-      state.user = null;
-      state.loading = true;
-      state.error = undefined;
-
-      localStorage.removeItem('userInfo');
-    },
-    LoginSuccess: (state, action) => {
+    setCredentials: (state, action: PayloadAction<userDetailsType>) => {
       state.user = action.payload;
       state.loading = false;
       state.error = undefined;
 
       localStorage.setItem('userInfo', JSON.stringify(state.user));
     },
-    LoginFail: (state, action) => {
-      state.user = null;
-      state.loading = false;
-      state.error = action.payload;
-    },
-    Logout: (state) => {
+    resetCredentials: (state) => {
       state.user = null;
       state.loading = false;
       state.error = undefined;
@@ -67,7 +58,6 @@ export const userDetailsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { LoginSuccess, LoginRequest, LoginFail, Logout } =
-  userDetailsSlice.actions;
+export const { setCredentials, resetCredentials } = userDetailsSlice.actions;
 
 export default userDetailsSlice.reducer;

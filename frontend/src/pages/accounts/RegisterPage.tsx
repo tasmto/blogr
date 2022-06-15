@@ -4,7 +4,7 @@ import RegisterForm from '../../features/register/RegisterForm';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import AlreadySignedInCard from '../../features/login/AlreadySignedInCard';
-import CircularSpinner from '../../components/spinners/CircularSpinner';
+import CircularSpinner from '../../features/spinners/CircularSpinner';
 
 type Props = {};
 

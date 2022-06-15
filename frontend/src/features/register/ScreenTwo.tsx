@@ -1,38 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   TextField,
-  InputAdornment,
   Container,
-  IconButton,
   Button,
+  ToggleButtonGroup,
+  ToggleButton,
+  Typography,
 } from '@mui/material';
-import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
-import { useDispatch } from 'react-redux';
-import { login } from '../../redux/actions/UserDetailsActions';
 
 type Props = { onSubmit: (data: {}) => void };
 
 const ScreenTwo = ({ onSubmit }: Props) => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    password: '',
-    email: '',
+    bio: '',
+    topics: [],
   });
 
-  const [showPassword, setShowPassword] = useState(false);
-  const toggleShowPassword = () => setShowPassword((curState) => !curState);
+  const featuredTopics = [
+    'technology',
+    'productivity',
+    'art',
+    'entertainment',
+    'business',
+    'mindfulness',
+    'money',
+  ];
 
   const handleFormMutation = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFormData((prevData) => {
       return { ...prevData, [e.target.id]: e.target.value };
     });
+  const handleTopicsMutation = (
+    _: React.MouseEvent<HTMLElement>,
+    newFormats: string[]
+  ) => {
+    setFormData((prevData: any) => {
+      return { ...prevData, topics: newFormats };
+    });
+  };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (formData.password === '' || formData.email === '') return false;
-
     onSubmit(formData);
   };
 
@@ -46,54 +54,49 @@ const ScreenTwo = ({ onSubmit }: Props) => {
         pr: { md: 0 },
       }}
     >
+      <Typography variant='h3' sx={{ mb: 3 }}>
+        Create a new account: 2 of 3
+      </Typography>
       <TextField
         fullWidth
-        id='email'
+        id='bio'
         required
-        label='What is your emal?'
-        type='email'
+        label='Your Bio'
+        type='text'
+        multiline
+        maxRows={4}
         variant='outlined'
-        value={formData.email}
+        value={formData.bio}
         onChange={handleFormMutation}
       />
-      <TextField
-        fullWidth
-        id='password'
-        required
-        label='What is your password?'
-        type={showPassword ? 'text' : 'password'}
-        variant='outlined'
-        value={formData.password}
-        onChange={handleFormMutation}
-        helperText='Your password needs to be at least 8 characters long.'
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position='start'>
-              <IconButton
-                sx={{ cursor: 'pointer' }}
-                edge='end'
-                aria-label='toggle password visibility'
-                onClick={toggleShowPassword}
-              >
-                {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      />
+
+      <Typography variant='h5' sx={{ mt: 2, mb: 2 }}>
+        Choose any (at least one) topic you are interested in *
+      </Typography>
+      <ToggleButtonGroup
+        value={formData.topics}
+        onChange={handleTopicsMutation}
+        aria-label='Topics'
+        color='primary'
+        size='small'
+        sx={{ flexWrap: 'wrap' }}
+      >
+        {featuredTopics.map((topic) => (
+          <ToggleButton value={topic} aria-label={topic}>
+            {topic}
+          </ToggleButton>
+        ))}
+      </ToggleButtonGroup>
+
       <Button
         variant='contained'
         disableElevation
-        sx={{ borderRadius: '15px', width: '100%', mt: 2 }}
+        sx={{ borderRadius: '15px', width: '100%', mt: 4 }}
         type='submit'
         size='large'
-        disabled={
-          formData.email === '' ||
-          formData.password === '' ||
-          formData.password.trim().length < 8
-        }
+        disabled={!formData.bio || !formData.topics.length}
       >
-        Sign In
+        Continue
       </Button>
     </Container>
   );

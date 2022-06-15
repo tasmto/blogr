@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Container } from '@mui/material';
 
 import { useDispatch } from 'react-redux';
-import { login } from '../../redux/actions/UserDetailsActions';
 import ScreenOne from './ScreenOne';
 import ScreenTwo from './ScreenTwo';
 import ScreenThree from './ScreenThree';
@@ -22,12 +21,14 @@ const RegisterForm = (props: Props) => {
     preferredColorTheme: '',
     bio: '',
   });
-  const [signUpStage, setSignUpState] = useState(1);
+  const [signUpStage, setSignUpStage] = useState(3);
 
-  const handleFormDataMutate = (data: {}): void =>
+  const handleFormDataMutate = (data: {}): void => {
     setFormData((currentData) => {
       return { ...currentData, ...data };
     });
+    setSignUpStage((curState) => (curState += 1));
+  };
 
   return (
     <Container

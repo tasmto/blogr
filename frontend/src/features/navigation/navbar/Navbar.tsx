@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../../../components/logo/Logo';
+import Logo from '../logo/Logo';
 import { Box } from '@mui/system';
 import MenuItems from './MenuItems';
 import UserIconMenu from './UserIconMenu';

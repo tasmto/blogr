@@ -5,38 +5,49 @@ import {
   Container,
   IconButton,
   Button,
+  Alert,
+  AlertTitle,
 } from '@mui/material';
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
-import { validateEmailFormat } from '../../utilities/ValidateFormat';
 import { useDispatch } from 'react-redux';
-import { login } from '../../redux/actions/UserDetailsActions';
+import { useLoginMutation } from '../../redux/slices/BlogrApiSlice';
+import { setCredentials } from '../../redux/slices/UserDetailsSlice';
+import { useNavigate } from 'react-router';
 
 type Props = {};
 
 const LoginForm = (props: Props) => {
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [login, { error }] = useLoginMutation();
 
-  const [signInFormData, setSignInFormData] = useState({
+  const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
-
   const toggleShowPassword = () => setShowPassword((curState) => !curState);
 
   const handleSignInFormMutation = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setSignInFormData((prevData) => {
+    setFormData((prevData) => {
       return { ...prevData, [e.target.id]: e.target.value };
     });
 
-  const handleSignInFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignInFormSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
 
-    if (signInFormData.password === '' || signInFormData.email === '')
-      return false;
+    if (formData.password === '' || formData.email === '') return false;
 
-    dispatch(login(signInFormData.email, signInFormData.password));
+    try {
+      const user = await login(formData).unwrap();
+      dispatch(setCredentials(user));
+      // Go to profile after login
+      navigate('/profile');
+    } catch (err: any) {}
   };
+
   return (
     <Container
       component='form'
@@ -54,7 +65,7 @@ const LoginForm = (props: Props) => {
         label='What is your emal?'
         type='email'
         variant='outlined'
-        value={signInFormData.email}
+        value={formData.email}
         onChange={handleSignInFormMutation}
       />
       <TextField
@@ -64,7 +75,7 @@ const LoginForm = (props: Props) => {
         label='What is your password?'
         type={showPassword ? 'text' : 'password'}
         variant='outlined'
-        value={signInFormData.password}
+        value={formData.password}
         onChange={handleSignInFormMutation}
         helperText='Your password needs to be at least 8 characters long.'
         InputProps={{
@@ -82,6 +93,31 @@ const LoginForm = (props: Props) => {
           ),
         }}
       />
+      {error && (
+        <Alert
+          severity='error'
+          sx={{ mt: 1 }}
+          action={
+            <Button
+              color='inherit'
+              size='small'
+              onClick={() => navigate('/sign-up')}
+              sx={{ m: 'auto' }}
+            >
+              Sign up
+            </Button>
+          }
+        >
+          <AlertTitle>Ooof:</AlertTitle>
+          Something went wrong, please double check your details above and try
+          again... (
+          {
+            //@ts-ignore: data doesnt exist on error
+            error?.data?.message
+          }
+          )
+        </Alert>
+      )}
       <Button
         variant='contained'
         disableElevation
@@ -89,9 +125,9 @@ const LoginForm = (props: Props) => {
         type='submit'
         size='large'
         disabled={
-          signInFormData.email === '' ||
-          signInFormData.password === '' ||
-          signInFormData.password.trim().length < 8
+          formData.email === '' ||
+          formData.password === '' ||
+          formData.password.trim().length < 8
         }
       >
         Sign In
