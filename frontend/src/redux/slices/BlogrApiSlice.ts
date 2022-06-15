@@ -40,8 +40,21 @@ export const blogrApiSlice = createApi({
           body: credentials,
         }),
       }),
+      uploadFile: builder.mutation<{}, FormData>({
+        query: (file) => ({
+          url: '/upload',
+          credentials: 'include',
+          method: 'POST',
+          body: file,
+          headers: { 'Content-Type': 'multipart/form-data' },
+        }),
+      }),
     };
   },
 });
 
-export const { useFetchUserDetailsQuery, useLoginMutation } = blogrApiSlice;
+export const {
+  useFetchUserDetailsQuery,
+  useLoginMutation,
+  useUploadFileMutation,
+} = blogrApiSlice;

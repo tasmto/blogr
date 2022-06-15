@@ -1,21 +1,17 @@
 import React from 'react';
-import {
-  TextField,
-  InputAdornment,
-  Container,
-  IconButton,
-  Button,
-  Typography,
-  Input,
-  Paper,
-} from '@mui/material';
+import { TextField, Button } from '@mui/material';
 import { IoImageOutline } from 'react-icons/io5';
+import { useUploadFileMutation } from '../../redux/slices/BlogrApiSlice';
+import { useDispatch } from 'react-redux';
 
 type Props = {
   onUpload: (link: string) => void;
 };
 
 const UploadProfilePicture = ({ onUpload }: Props) => {
+  const dispatch = useDispatch();
+  const [uploadFile] = useUploadFileMutation();
+
   const uploadPicture = async (e: React.ChangeEvent<HTMLInputElement>) => {
     // @ts-ignore: target files may be null
     const file = e.target.files[0];
@@ -23,26 +19,12 @@ const UploadProfilePicture = ({ onUpload }: Props) => {
     const formData = new FormData();
     formData.append('image', file);
 
-    //   setUploading(true);
-    /*
     try {
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      };
-      const { data } = await axios.post('/api/upload', formData, config);
-      onUpload(data);
-      // setProductData((currentData) => {
-      //   return {
-      //     ...currentData,
-      //     image: data,
-      //   };
-      // });
-      // setUploading(false);
+      const data = await uploadFile(formData);
+      console.log(data);
     } catch (error) {
       console.error(error);
-    }*/
+    }
   };
   return (
     <label htmlFor='contained-button-file'>

@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import connectDB from './config/db.js';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 import userRoutes from './routes/userRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js';
 
 dotenv.config();
 connectDB();
@@ -18,8 +19,10 @@ app.use(express.json()); // allows us to use JSON data in the body
 
 // Mount the API routes
 app.use('/api/users', userRoutes);
+app.use('/api/upload', uploadRoutes); // mount the file upload routes
 
 // Make the local server folder uploads accessible to express
+
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
