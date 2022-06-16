@@ -8,7 +8,7 @@ export interface userDetailsType {
   firstName: string;
   lastName: string;
   email: string;
-  role: string;
+  role: 'normee' | 'apprentice' | 'guru' | 'sage' | 'admin';
   avatar: string;
   bookmarks: string[];
   token: string;

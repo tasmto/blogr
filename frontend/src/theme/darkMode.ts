@@ -24,5 +24,12 @@ export const darkMode = {
     error: {
       main: '#D73026',
     },
+    user: {
+      normee: '#69B694',
+      apprentice: '#519576',
+      guru: '#D1976C',
+      sage: '#385385',
+      admin: '#292929',
+    },
   },
 };
