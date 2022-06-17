@@ -1,8 +1,8 @@
 import React from 'react';
 import { SvgIcon, Tooltip, Typography } from '@mui/material';
 import Zoom from '@mui/material/Zoom';
+import { Accounts } from './types';
 
-type Accounts = 'normee' | 'apprentice' | 'guru' | 'sage' | 'admin';
 type Props = {
   color?: 'account';
   size?: 'large' | 'small';

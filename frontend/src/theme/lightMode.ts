@@ -14,7 +14,7 @@ export const lightMode = {
       hint: '#757575',
     },
     info: {
-      main: '#F2F2F2',
+      main: '#757575',
     },
     background: {
       default: '#FFFFFF',

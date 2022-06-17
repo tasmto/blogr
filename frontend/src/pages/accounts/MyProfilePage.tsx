@@ -16,7 +16,9 @@ import { RootState } from '../../redux/store';
 type Props = {};
 
 const MyProfilePage = (props: Props) => {
-  const { user } = useSelector((state: RootState) => state.userDetails);
+  const userDetails = useSelector((state: RootState) => state.userDetails);
+  const user = userDetails.user;
+
   return (
     <Container sx={{ ml: { lg: 0 } }}>
       <Grid container item spacing={4} sx={{ pt: 5 }}>
